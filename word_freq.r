@@ -4,10 +4,10 @@ library(dplyr)
 library(ggplot2)
 library(wordcloud2)
 
-setwd("~/Documents/NTU/2_Sophomore/2-2/R/Project/data_set")
+setwd("~/Documents/NTU/2_Sophomore/2-2/R/Project/LING5505-Final-Project-Group3")
+seg = worker(stop_word = "stop_words.txt")
 
-seg = worker()
-
+setwd("~/Documents/NTU/2_Sophomore/2-2/R/Project/LING5505-Final-Project-Group3/data_set")
 file_names = list.files()
 
 all_segged = ""
@@ -27,4 +27,6 @@ tidy_df = df %>% unnest_tokens(output = "words", input = "all_segged_", token = 
 freq_df = tidy_df %>% group_by(words) %>% summarise(n = n()) %>% arrange(desc(n))
 
 print(freq_df)
-wordcloud2(freq_df_,backgroundColor='white',size = 2)
+
+cloud = wordcloud2(freq_df,backgroundColor='white',size = 1)
+print(cloud)
