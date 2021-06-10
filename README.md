@@ -40,14 +40,8 @@
     import os
     data_utils.download_data_url(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)))
   ```
-  **(3) Set the ckiptagger worker**
-  ```py
-    ws = WS(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
-    pos = POS(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
-    ner = NER(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
-  ```
 
-  **(4) Import them**
+  **(3) Import them**
   ```py
     import numpy as np
     import pandas as pd
@@ -64,6 +58,12 @@
     
     from CwnGraph import CwnBase
     from ckiptagger import data_utils, construct_dictionary, WS, POS, NER
+  ```
+  **(4) Set the ckiptagger worker**
+  ```py
+    ws = WS(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
+    pos = POS(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
+    ner = NER(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
   ```
 
   **(5) For more information, visit [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)**
