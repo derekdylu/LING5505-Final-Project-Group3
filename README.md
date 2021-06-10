@@ -8,23 +8,17 @@
 
 <h3 align="center">Group 3</h3>
 
-<!-- <div align="center">
-  <a href="https://icheft.github.io/MGT2001-Final-Project/">
-    <img src="https://img.shields.io/badge/MGT2001-網頁版請點此-green?style=for-the-badge&logo=python">
-  </a>
-</div> -->
-
 <h5 align="center">
-小組名單
+    小組名單
 </h5>
-
 
 ## Notes
 
-+ All files should be named `Stat_2020_b_2.xxx`
-+ Brainstorming 在 [Google Spreadsheet](https://docs.google.com/spreadsheets/d/109Qs8u3Vit_T6Y6TnVSWRkA9TWvFKvzJEdva9StlEfE/edit#gid=0)
++ [Proposal](https://docs.google.com/document/d/1DvcNkbKt71XfwLikUxRwCfoIL6N7rdd8p-fO2EZian4/edit#heading=h.66htjfnm6yv3)
++ 208篇學測與指考作文佳作儲存於data_det資料夾
++ 專案使用R與Python製作
 
-### Things to Do Before Geting Started
+### Things required for python project
 
 1. Everyone should have their local Python packages identical
 
