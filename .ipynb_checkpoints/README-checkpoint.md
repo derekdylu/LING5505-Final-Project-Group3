@@ -46,8 +46,27 @@
     pos = POS(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
     ner = NER(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
   ```
-  
-  **(4) For more information, visit [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)**
+
+  **(4) Import them**
+  ```py
+    import numpy as np
+    import pandas as pd
+    import gdown
+    
+    import torch
+    import transformers
+    
+    import CwnSenseTagger
+    CwnSenseTagger.download()
+
+    import CwnGraph
+    CwnGraph.download()
+    
+    from CwnGraph import CwnBase
+    from ckiptagger import data_utils, construct_dictionary, WS, POS, NER
+  ```
+
+  **(5) For more information, visit [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)**
 
 ## Milestones
 
