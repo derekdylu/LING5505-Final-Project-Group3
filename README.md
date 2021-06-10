@@ -15,12 +15,10 @@
 ## Notes
 
 + [Proposal](https://docs.google.com/document/d/1DvcNkbKt71XfwLikUxRwCfoIL6N7rdd8p-fO2EZian4/edit#heading=h.66htjfnm6yv3)
-+ 208篇學測與指考作文佳作儲存於data_det資料夾
-+ 專案使用R與Python製作
++ 208篇學測與指考作文佳作儲存於data_set資料夾
++ 使用R與Python製作
 
 ### Things required for python project
-
-1. Everyone should have their local Python packages identical
 
   You have to download all the potentially required package according to the commands below,
 
@@ -49,7 +47,7 @@
     ner = NER(os.path.abspath(os.path.join(os.getcwd(), os.path.pardir)) + '/data')
   ```
   
-  **(4) For more information, visit [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)
+  **(4) For more information, visit [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)**
 
 ## Milestones
 
