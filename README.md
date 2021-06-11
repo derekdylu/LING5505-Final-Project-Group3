@@ -31,8 +31,8 @@
     !pip install CwnSenseTagger
     !pip install CwnGraph
     !pip install ckiptagger
-    !pip install CwnSenseTagger.download()
-    !pip install CwnGraph.download()
+    CwnSenseTagger.download()
+    CwnGraph.download()
   ```
 
   **(2) Download required file for ckiptagger**: The commands below let you to save the downloaded file outside the folder that connected to GitHub repository since the file is quite big (about 2GB)
