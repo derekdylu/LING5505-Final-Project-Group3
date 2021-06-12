@@ -1,0 +1,7 @@
+name: "my-website"
+navbar:
+  title: "R project"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html

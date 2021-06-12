@@ -1,0 +1,191 @@
+---
+title: "**台灣升大學考試國寫情意題佳作詞頻相關研究**"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: sandstone
+---
+第三組 想不到組名
+
+組員：朱修平、盧德原、楊舒晴、陳宛瑩
+
+<br>
+
+<!-- PART1 -->
+# **前言**
+(為什麼做這個題目)
+
+---
+
+<!-- PART2 -->
+# **資料來源**
+(大考中心網站)
+
+---
+
+<!-- PART3 -->
+# **佳作基本特性**
+(平均長度、平均語句長度、平均段落長度、平均段落數)
+
+---
+
+<!-- PART4 -->
+# **佳作常引用名人事蹟或名言佳句嗎?**
+## 名人
+<div class = "row">
+
+<div class = "col-md-4">
+(分析結果描述)
+</div>
+
+<div class = "col-md-8">
+```{r, echo = FALSE, out.width='100%'}
+## 讀檔
+id <- list.files("../data_set/") # 文章的檔名
+contents <- vector("character", length(id)) # 創一個長度與文章數相同的vector
+
+# 將文章內容讀進來，並放入contents這個變數中(不分段)
+for (i in seq_along(id)){
+  path <- paste0("../data_set/", id[i])
+  contents[i] <- paste0(readLines(path, encoding = "UTF-8", warn=FALSE), collapse = "")
+}
+
+# 把檔名(id)和文章內容(contents)放進docs_df這個dataFrame中
+docs_df <- tibble::tibble(
+  id = id,
+  content = contents
+)
+
+## 製圖
+library(stringr)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library (tidyverse)
+library(tidytext)
+library(ggrepel)
+library(ggthemr)
+
+# 將放有偉人、名人名字的txt檔讀進來，存進names這個變數中
+names <- readLines("../names.txt", encoding = "UTF-8", warn=FALSE)
+names <- paste0(names, "、", collapse = "")
+names <- unique(strsplit(names, split = "、")[[1]]) 
+
+# 統計各篇文章出現幾個偉人、名人(若重複提到只計算一次)，儲存結果於docs_df的name_times欄位中
+docs_df$name_times <- unlist(lapply(contents, function(x){sum(str_detect(x, names))}))
+
+#製圖
+ggthemr('dust')
+
+docs_df1 <-docs_df%>% group_by(name_times)%>%summarise(count =n(),percent =n()/208)
+ggplot(docs_df1, aes(x=reorder(name_times,-count),y=count)) +
+       geom_bar(width = 0.8, stat = "identity") +
+   
+#加上標題
+labs(title="大考佳作出現名人次數分佈狀況",x="出現次數",y="篇數")+
+
+#修改標籤名字
+theme(text=element_text(size=12))+
+geom_text(aes(label = count,y = -10),colour="black",size=4)+
+geom_text(aes(label = paste0(sprintf("%1.1f", percent*100),"%"), y=(count+10)),size=6,position =position_dodge(0.2),colour="brown")
+```
+</div>
+</div>
+
+<br>
+
+<div class = "row">
+
+<div class = "col-md-4">
+(分析結果描述)
+</div>
+
+<div class = "col-md-8">
+```{r, echo = FALSE, out.width='100%'}
+# 哪個名人、偉人出現在最多篇文章中
+# 名字計數器(傳入某名字，函數會回傳提到此名字的文章有幾篇)
+count_times <- function(name){
+  count <- 0 
+  for(i in seq_along(contents)){
+    if (str_detect(contents[[i]], name) == TRUE){
+      count <- count + 1
+    }
+  }
+  return (count)
+}
+
+# 計算每個名字各出現在幾篇文章中
+article_found_Q <- unlist(lapply(names, count_times))
+
+# 出現某名人的文章是哪幾篇
+find_article <- function(name){
+  article_vec <- c()
+  for (i in seq_along(contents)){
+    if (str_detect(contents[[i]], name) == TRUE){
+        article_vec <- c(article_vec, id[[i]])
+    }
+  }
+  return(paste0(article_vec, " ", collapse = ""))
+}
+article_found <- unlist(lapply(names, find_article))
+
+# 將名字與篇數放入names_df中
+names_df <- tibble::tibble(
+  name = names,
+  article_found_Q = article_found_Q,
+  article_found = article_found
+  )
+
+## 圖
+ggthemr('dust')
+
+#製圖
+names_df1 <- names_df %>%
+  filter(article_found_Q >= 4)
+
+ggplot(names_df1, aes(x = reorder(name, -article_found_Q), y = article_found_Q)) +
+  geom_bar(width = 0.8, stat = "identity") +
+  #加上標題
+  labs(title = "名人出現次數排行", x = "人名", y = "篇數") +
+  #修改標籤名字
+  theme(text = element_text(size = 12), axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  geom_text(aes(label = article_found_Q, y=( article_found_Q+1)),size=6,position =position_dodge(0.2),colour="brown")  
+```
+</div>
+</div>
+
+## 名言佳句
+```{r, echo=FALSE, attr.output='style="max-height: 300px;"'}
+good_sent <- c()
+good_sent_id <- c()
+
+# 含冒號
+for (i in seq_along(id)){
+  sentences <- unique(str_match_all(contents[[i]], "：(\\w|，){5,}(。|？|！)")[[1]][,1])
+  good_sent <- c(good_sent, sentences)
+  good_sent_id <- c(good_sent_id, rep(i, length(sentences)))
+}
+
+# 含引號
+for (i in seq_along(id)){
+  sentences <- unique(str_match_all(contents[[i]], "「(\\w|，|。|！|；|、){5,}?」")[[1]][,1])
+  good_sent <- c(good_sent, sentences)
+  good_sent_id <- c(good_sent_id, rep(i, length(sentences)))
+}
+
+# 拿掉冒號和上下引號
+good_sent <- unlist(lapply(good_sent, function(x){str_replace_all(x, "[：「」]", "")}))
+
+# 看結果
+good_sent
+
+```
+
+---
+
+<!-- PART5-->
+# **冷僻詞分析**
+(...)
+

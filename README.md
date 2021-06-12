@@ -12,6 +12,11 @@
     小組名單
 </h5>
 
+## Demo website
+The demo website is created at `_site` folder, you can open the home page by `index.html`.
+
+To create new .html file after editing: <rmarkdown::render_site()>
+
 ## Notes
 
 + [Proposal](https://docs.google.com/document/d/1DvcNkbKt71XfwLikUxRwCfoIL6N7rdd8p-fO2EZian4/edit#heading=h.66htjfnm6yv3)
