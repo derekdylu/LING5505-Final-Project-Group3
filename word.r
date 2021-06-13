@@ -1,5 +1,11 @@
 library("jiebaR", "jiebaRD")
 library("stringr")
+library("dplyr")
+library("quanteda")
+library("quanteda.textstats")
+library("quanteda.textmodels")
+library("magrittr")
+library("readxl")
 
 # library("reticulate")
 # use_python("D:\\Anaconda")
@@ -54,5 +60,25 @@ df_unbreak <- tibble::tibble(
   content = post
 )
 
-df_break
-df_unbreak
+# df_break
+# df_unbreak
+# 
+# df <- read_excel("../frequency_30_word.xlsx")
+# test <- df[2]
+# test
+quanteda_corpus <- corpus(df_break, 
+                          docid_field = "id", 
+                          text_field = "content") %>%
+  tokenizers::tokenize_regex(pattern =  "\u3000") %>%
+  tokens()
+
+q_dfm <- dfm(quanteda_corpus) %>% 
+  dfm_remove(pattern =  readLines("../stopwords.txt"), valuetype = "fixed") %>%
+  dfm_select(pattern = "[\u4E00-\u9FFF]", valuetype = "regex") %>%
+  dfm_trim(min_termfreq = 5) %>%
+  dfm_tfidf()
+q_dfm
+
+doc_sim <- textstat_simil(q_dfm, method = "cosine") %>% as.matrix()
+sort(doc_sim["test.TXT", ], decreasing = T)[1:8]
+
