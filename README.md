@@ -18,8 +18,8 @@
 + [data_set](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/data_set) folder for 208 raw materials
 + The demo site is stored in _[site](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/web/_site) folder
 + The project contains `.Rmd` and `.ipynb` files
-+ + make sure to install the required packages by following the instructions below before running the `.ipynb` file 
-+ + for `.Rmd` file, open it in [RStudio](https://www.rstudio.com) and run by following the instructions in the software
+  + make sure to install the required packages by following the instructions below before running the `.ipynb` file 
+  + for `.Rmd` file, open it in [RStudio](https://www.rstudio.com) and run by following the instructions in the software
 
 ### Things required for .ipynb file
 
