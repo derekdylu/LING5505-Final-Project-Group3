@@ -3,27 +3,23 @@
 </h1>
 
 <h2 align='center'>
-    大考作文佳作分析
+    台灣升大學考試國寫情意題佳作研究
 </h2>
 
-<h3 align="center">Group 3</h3>
+<h3 align="center">3. 想不到組名</h3>
 
 <h5 align="center">
     朱修平、盧德原、楊舒晴、陳宛瑩
 </h5>
 
-## Demo website
-The demo website is created at `_site` folder, you can open the home page by `index.html`.
-
-To create new .html file after editing: <rmarkdown::render_site()>
-
-## Notes
+## Quick start
 
 + [Proposal](https://docs.google.com/document/d/1DvcNkbKt71XfwLikUxRwCfoIL6N7rdd8p-fO2EZian4/edit#heading=h.66htjfnm6yv3)
-+ 208篇學測與指考作文佳作儲存於data_set資料夾
-+ 使用R與Python製作
++ data_set folder for 208 raw materials
++ The demo site is stored in _[site](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/web/_site) folder
++ The project contains `.Rmd` and `.ipynb` files, make sure to install the required packages by following the instructions below before running the .ipynb file 
 
-### Things required for python project
+### Things required for .ipynb file
 
   You have to download all the potentially required package according to the commands below,
 
@@ -72,6 +68,4 @@ To create new .html file after editing: <rmarkdown::render_site()>
   ```
 
   **(5) For more information, visit [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)**
-
-## Milestones
 
