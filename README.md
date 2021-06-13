@@ -9,7 +9,7 @@
 <h3 align="center">Group 3</h3>
 
 <h5 align="center">
-    小組名單
+    朱修平、盧德原、楊舒晴、陳宛瑩
 </h5>
 
 ## Demo website
