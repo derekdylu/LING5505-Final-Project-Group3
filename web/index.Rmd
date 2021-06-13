@@ -4,12 +4,11 @@ output:
   html_document:
     toc: true
     toc_float: true
-    number_sections: true
     theme: sandstone
 ---
-第三組 想不到組名
+**第三組 想不到組名**
 
-組員：朱修平、盧德原、楊舒晴、陳宛瑩
+**組員：朱修平、盧德原、楊舒晴、陳宛瑩**
 
 <br>
 
@@ -21,32 +20,144 @@ output:
 
 <!-- PART2 -->
 # **研究方法**
-## **資料來源與介紹**
+
+<br>
+
+## **1資料來源與介紹**
 本組參酌大考中心每年提供之升大學考試國文作文佳作範本，收錄範圍為民國95年至110年學測與98年至110年指考，共計208篇。另外，由於大考中心係提供範文手寫影本，資料前處理較為耗時，為免壓縮後續資料處理時間，106至110年之學測與指考皆各收錄兩筆資料，並以完整結構之作文為主（新式國寫有部分簡答題）。
 
-## **資料前處理**
+## **2資料前處理**
 本組以手動繕打將資料輸入電腦轉換成txt.檔，統一資料格式（例如：分段換行、無空格、完整標點符號、刪除底線、標準化檔名）後，再匯入Ｒ、python進行後續資料分析。
 處理後之資料格式範例顯示如下：
+
+------------- --------------------------------------------
+file type     .txt
+
+file name     GSAT_107_1
+
+file content  四季遞嬗，各有各的紛繁絢麗，也各有各的落寞寂寥。然而，一個季節的組成絕不只是天氣上的變化，還要有繚繞的氣味，刻骨的畫面，以及活在季節的人們的故事，最好還要有一支如韋瓦第四季的曲子，使季節如電影般，有開演、有落幕。\\n
+              閉上眼睛，常常想起的畫面通常背景是。
+------------- --------------------------------------------
 
 
 ---
 
 <!-- PART3 -->
-# **佳作基本特性**
-(平均長度、平均語句長度、平均段落長度、平均段落數)
+# **資料分析**
+本組將成果報告分成以下4個部分，依序為**基礎結構分析**、**引用資料分析**、**語彙詞頻分析**與**相似性分析**，詳細說明如下：
 
----
+<!-- 所有會用到的library -->
+```{r, echo = FALSE}
+library(jiebaR, jiebaRD)
+library(stringr)
+library(dplyr)
+library(ggplot2)
+library (tidyverse)
+library(tidytext)
+library (ggpubr)
+library(lubridate)
+library(readr)
+library(ggrepel)
+library(ggthemr)
+```
 
-<!-- PART4 -->
-# **佳作常引用名人事蹟或名言佳句嗎?**
-## 名人
+
+<br>
+
+## **1基礎結構分析**
+
+### **1.1佳作文章長度**
+```{r, echo = FALSE, message=FALSE}
+#文章字數分佈圖
+ggplot(data = df_unbreak) +
+  geom_freqpoly(aes(x=article_len),size=1,color="#996666")+
+  geom_vline(xintercept=549.75,color="grey",size=1)+
+  geom_vline(xintercept=608,color="grey",size=0.5)+
+  geom_vline(xintercept=677.25,color="grey",size=0.5)+
+  labs(title="文章字數分佈密度圖",x="字數",y="篇數",caption ="*輔助線為四分位數（549.75,608,677.25)")+
+  theme(text=element_text(size=12))
+```
+
+### **1.2文章句數**
+```{r, echo = FALSE, message=FALSE}
+#文章句數分佈圖
+ggplot(data = df_unbreak) +
+  geom_freqpoly(aes(x=sentence_num),size=1,color="#996666")+
+  geom_vline(xintercept=12,color="grey",size=1)+
+  geom_vline(xintercept=15,color="grey",size=0.5)+
+  geom_vline(xintercept=19,color="grey",size=0.5)+
+  scale_shape_manual(values=c(4,15))+
+  labs(title="文章句數分佈密度圖",x="句數",y="篇數",caption = "*輔助線為四分位數（12,15,19)")+
+  theme(text=element_text(size=12))
+```
+
+### **1.3段落分佈狀況**
+```{r, echo = FALSE}
+text <- list.files(path = "../data_set/", full.names = FALSE)## ÀÉ®×
+paragraph_num <- vector("numeric", length = length(text))## number of paragraph
+article_len <- vector("numeric", length = length(text))## length of article
+sentence_num <- vector("numeric", length = length(text))## number of sentencce
+
+post <- list()
+for(i in seq_along(text)){
+  post[[i]] <- readLines(paste0("../data_set/", text[i]), encoding = "UTF-8", warn = FALSE)
+  paragraph_num[i] <- length(post[[i]])
+  a <- post[[i]][1]
+  for(j in 2 : length(post[[i]])){
+    a <- paste0(a, post[[i]][j])
+  }
+  post[[i]] <- a
+  
+}
+
+post <- unlist(post)## turn to vector
+for(i in seq_along(post)){ 
+  sentence_num[i] <- length(unlist(strsplit(post[i], split = "[。！？]", fixed = FALSE)))
+}
+
+
+seg <- worker()
+content <- vector("character", length(post))
+for(i in seq_along(post)){
+  segged <- segment(post[i], seg)
+  article_len[i] <- nchar(paste(segged, collapse = ""))
+  content[i] <- paste(segged, collapse = "\u3000")
+}
+
+df_break <- tibble::tibble(
+  id = text,
+  content = content
+)
+
+df_unbreak <- tibble::tibble(
+  id = text,
+  par_num = paragraph_num,
+  sentence_num = sentence_num,
+  article_len = article_len,
+  content = post
+)
+
+ggthemr('dust')
+
+#文章段落數分佈圖
+ggplot(data = df_unbreak) +
+  geom_bar(aes(x=par_num),size=1,color="#996666")+
+  labs(title="文章段落數分佈密度圖", x="段落數", y="篇數")+
+  theme(text=element_text(size=12))
+```
+
+
+<br>
+
+## **2引用資料分析**
+### **2.1名人偉人**
 <div class = "row">
 
-<div class = "col-md-4">
+<div class = "col-md-6">
 (分析結果描述)
 </div>
 
-<div class = "col-md-8">
+<div class = "col-md-6">
 ```{r, echo = FALSE, out.width='100%'}
 ## 讀檔
 id <- list.files("../data_set/") # 文章的檔名
@@ -65,14 +176,6 @@ docs_df <- tibble::tibble(
 )
 
 ## 製圖
-library(stringr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library (tidyverse)
-library(tidytext)
-library(ggrepel)
-library(ggthemr)
 
 # 將放有偉人、名人名字的txt檔讀進來，存進names這個變數中
 names <- readLines("../names.txt", encoding = "UTF-8", warn=FALSE)
@@ -162,7 +265,8 @@ ggplot(names_df1, aes(x = reorder(name, -article_found_Q), y = article_found_Q))
 </div>
 </div>
 
-## 名言佳句
+### **2.2佳句**
+**佳句整理**
 ```{r, echo=FALSE, attr.output='style="max-height: 300px;"'}
 good_sent <- c()
 good_sent_id <- c()
@@ -195,10 +299,8 @@ good_sent
 
 ```
 
-## 相似的名言佳句
+**重複出現之佳句**
 ```{r, echo=FALSE}
-library(jiebaR)
-
 # 去除所有標點符號
 good_sent_clean <- unlist(lapply(good_sent, function(x){str_replace_all(x, "[，。！、]", "")}))
 
@@ -218,9 +320,22 @@ for(i in 1:(length(good_sent)-1)){
 }
 ```
 
+<br>
+
+## **3語彙詞頻分析**
+### **3.1中文語彙詞頻**
+### **3.2冷僻字使用佔比**
+
+<br>
+
+## **4相似性分析**
+### **4.1首段與尾段落相似性**
+### **4.2輸入新文章分析器**
+
 ---
 
-<!-- PART5-->
-# **冷僻詞分析**
-(...)
+# **小結**
 
+---
+
+# **反思**
