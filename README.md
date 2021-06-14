@@ -75,4 +75,4 @@
   **(5) For more information, visit [ckiplab/ckiptagger](https://github.com/ckiplab/ckiptagger)**
 
 ### Part of Speech index
-Visit this [page](http://ckipsvr.iis.sinica.edu.tw/papers/category_list.pdf) for the index of part of speech
+Visit this [page](http://ckipsvr.iis.sinica.edu.tw/papers/category_list.pdf) for the index of part of speech from CKIP
