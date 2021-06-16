@@ -71,6 +71,8 @@ library("magrittr")
 ## **1基礎結構分析**
 
 ### **1.1佳作文章長度**
+<div class = "row">
+<div class = "col-md-8">
 ```{r, echo = FALSE, message=FALSE}
 text <- list.files(path = "../data_set/", full.names = FALSE)## ÀÉ®×
 paragraph_num <- vector("numeric", length = length(text))## number of paragraph
@@ -127,8 +129,15 @@ ggplot(data = df_unbreak) +
   labs(title="文章字數分佈密度圖",x="字數",y="篇數",caption ="*輔助線為四分位數（549.75,608,677.25)")+
   theme(text=element_text(size=12))
 ```
+</div>
+<div class = "col-md-4">
+(分析結果描述)
+</div>
+</div>
 
 ### **1.2文章句數**
+<div class = "row">
+<div class = "col-md-8">
 ```{r, echo = FALSE, message=FALSE}
 #文章句數分佈圖
 ggplot(data = df_unbreak) +
@@ -140,8 +149,15 @@ ggplot(data = df_unbreak) +
   labs(title="文章句數分佈密度圖",x="句數",y="篇數",caption = "*輔助線為四分位數（12,15,19)")+
   theme(text=element_text(size=12))
 ```
+</div>
+<div class = "col-md-4">
+(分析結果描述)
+</div>
+</div>
 
 ### **1.3段落分佈狀況**
+<div class = "row">
+<div class = "col-md-8">
 ```{r, echo = FALSE}
 #文章段落數分佈圖
 ggplot(data = df_unbreak) +
@@ -149,7 +165,11 @@ ggplot(data = df_unbreak) +
   labs(title="文章段落數分佈密度圖", x="段落數", y="篇數")+
   theme(text=element_text(size=12))
 ```
-
+</div>
+<div class = "col-md-4">
+(分析結果描述)
+</div>
+</div>
 
 <br>
 
@@ -258,12 +278,7 @@ geom_text(aes(label = paste0(sprintf("%1.1f", percent*100),"%"), y=(count+10)),s
 <br>
 
 <div class = "row">
-
-<div class = "col-md-4">
-(分析結果描述)
-</div>
-
-<div class = "col-md-8">
+<div class = "col-md-7">
 ```{r, echo = FALSE, out.width='100%', fig.height=6, fig.width=5}
 # 哪個名人、偉人出現在最多篇文章中
 # 名字計數器(傳入某名字，函數會回傳提到此名字的文章有幾篇)
@@ -313,8 +328,12 @@ ggplot(names_df1, aes(x = reorder(name, article_found_Q), y = article_found_Q)) 
   #修改標籤名字
   theme(text = element_text(size = 12), aspect.ratio = 1.5) +
   geom_text(aes(label = article_found_Q, y=(article_found_Q+1)),size=4,position =position_dodge(0.2),colour="brown") +
+  scale_y_continuous(breaks = c(0,1,2,3,4,5,6,7,8,9,10,11)) +
   coord_flip()
 ```
+</div>
+<div class = "col-md-5">
+(分析結果描述)
 </div>
 </div>
 
