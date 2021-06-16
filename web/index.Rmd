@@ -72,31 +72,6 @@ library("magrittr")
 
 ### **1.1佳作文章長度**
 ```{r, echo = FALSE, message=FALSE}
-#文章字數分佈圖
-ggplot(data = df_unbreak) +
-  geom_freqpoly(aes(x=article_len),size=1,color="#996666")+
-  geom_vline(xintercept=549.75,color="grey",size=1)+
-  geom_vline(xintercept=608,color="grey",size=0.5)+
-  geom_vline(xintercept=677.25,color="grey",size=0.5)+
-  labs(title="文章字數分佈密度圖",x="字數",y="篇數",caption ="*輔助線為四分位數（549.75,608,677.25)")+
-  theme(text=element_text(size=12))
-```
-
-### **1.2文章句數**
-```{r, echo = FALSE, message=FALSE}
-#文章句數分佈圖
-ggplot(data = df_unbreak) +
-  geom_freqpoly(aes(x=sentence_num),size=1,color="#996666")+
-  geom_vline(xintercept=12,color="grey",size=1)+
-  geom_vline(xintercept=15,color="grey",size=0.5)+
-  geom_vline(xintercept=19,color="grey",size=0.5)+
-  scale_shape_manual(values=c(4,15))+
-  labs(title="文章句數分佈密度圖",x="句數",y="篇數",caption = "*輔助線為四分位數（12,15,19)")+
-  theme(text=element_text(size=12))
-```
-
-### **1.3段落分佈狀況**
-```{r, echo = FALSE}
 text <- list.files(path = "../data_set/", full.names = FALSE)## ÀÉ®×
 paragraph_num <- vector("numeric", length = length(text))## number of paragraph
 article_len <- vector("numeric", length = length(text))## length of article
@@ -143,6 +118,31 @@ df_unbreak <- tibble::tibble(
 
 ggthemr('dust')
 
+#文章字數分佈圖
+ggplot(data = df_unbreak) +
+  geom_freqpoly(aes(x=article_len),size=1,color="#996666")+
+  geom_vline(xintercept=549.75,color="grey",size=1)+
+  geom_vline(xintercept=608,color="grey",size=0.5)+
+  geom_vline(xintercept=677.25,color="grey",size=0.5)+
+  labs(title="文章字數分佈密度圖",x="字數",y="篇數",caption ="*輔助線為四分位數（549.75,608,677.25)")+
+  theme(text=element_text(size=12))
+```
+
+### **1.2文章句數**
+```{r, echo = FALSE, message=FALSE}
+#文章句數分佈圖
+ggplot(data = df_unbreak) +
+  geom_freqpoly(aes(x=sentence_num),size=1,color="#996666")+
+  geom_vline(xintercept=12,color="grey",size=1)+
+  geom_vline(xintercept=15,color="grey",size=0.5)+
+  geom_vline(xintercept=19,color="grey",size=0.5)+
+  scale_shape_manual(values=c(4,15))+
+  labs(title="文章句數分佈密度圖",x="句數",y="篇數",caption = "*輔助線為四分位數（12,15,19)")+
+  theme(text=element_text(size=12))
+```
+
+### **1.3段落分佈狀況**
+```{r, echo = FALSE}
 #文章段落數分佈圖
 ggplot(data = df_unbreak) +
   geom_bar(aes(x=par_num),size=1,color="#996666")+
@@ -156,12 +156,54 @@ ggplot(data = df_unbreak) +
 ## **2引用資料分析**
 ### **2.1名人偉人**
 <div class = "row">
-
 <div class = "col-md-6">
-(分析結果描述)
+<br>
+```{r, echo = FALSE, fig.height=6, fig.width=4}
+year <- unlist(lapply(id, function(x){as.integer(strsplit(x, split = "_")[[1]][[2]])}))
+docs_df$year <- year
+year_df <- docs_df %>%
+  group_by(year) %>%
+  summarise(average = mean(name_times)) %>%
+  arrange(year)
+
+ggplot(data = year_df) +
+  geom_bar(aes(x = reorder(year, -year), y = average), stat = "identity", size = 1, color = "#996666", show.legend = FALSE) +
+  labs(title = "各年份佳作平均名人數", x = "年份", y = "名人數")+
+  theme(text = element_text(size = 12), aspect.ratio = 1.5, plot.margin = margin(0, 0, 0, 0, "cm")) +
+  coord_flip()
+```
 </div>
 
 <div class = "col-md-6">
+**歷年作文題目**
+
+年份  學測題目           指考題目
+----- ------------------ ----------------------
+95年  雨季的故事
+96年  走過
+97年  如果當時...
+98年  逆境               惑
+99年  漂流木的獨白       應變
+100年 學校和學生的關係   寬與深
+101年 自勝者強           我可以終身奉行的一個字
+102年 人間愉快           遠方
+103年 通關密語           圓一個夢
+104年 獨享               審己以度人
+105年 我看歪腰郵筒       舉重若輕
+106年 關於經驗的N種思考  在人際互動中找到自己
+107年 季節的感思
+108年 溫暖的心
+109年 靜夜情懷
+110年 如果我有一座新冰箱
+----- ------------------ ----------------------
+</div>
+</div>
+
+<br>
+
+<div class = "row">
+
+<div class = "col-md-8">
 ```{r, echo = FALSE, out.width='100%'}
 ## 讀檔
 id <- list.files("../data_set/") # 文章的檔名
@@ -192,7 +234,9 @@ docs_df$name_times <- unlist(lapply(contents, function(x){sum(str_detect(x, name
 #製圖
 ggthemr('dust')
 
-docs_df1 <-docs_df%>% group_by(name_times)%>%summarise(count =n(),percent =n()/208)
+docs_df1 <- docs_df %>% 
+  group_by(name_times) %>%
+  summarise(count =n(),percent =n()/208)
 ggplot(docs_df1, aes(x=reorder(name_times,-count),y=count)) +
        geom_bar(width = 0.8, stat = "identity") +
    
@@ -205,6 +249,10 @@ geom_text(aes(label = count,y = -10),colour="black",size=4)+
 geom_text(aes(label = paste0(sprintf("%1.1f", percent*100),"%"), y=(count+10)),size=6,position =position_dodge(0.2),colour="brown")
 ```
 </div>
+
+<div class = "col-md-4">
+
+</div>
 </div>
 
 <br>
@@ -216,7 +264,7 @@ geom_text(aes(label = paste0(sprintf("%1.1f", percent*100),"%"), y=(count+10)),s
 </div>
 
 <div class = "col-md-8">
-```{r, echo = FALSE, out.width='100%'}
+```{r, echo = FALSE, out.width='100%', fig.height=6, fig.width=5}
 # 哪個名人、偉人出現在最多篇文章中
 # 名字計數器(傳入某名字，函數會回傳提到此名字的文章有幾篇)
 count_times <- function(name){
@@ -258,13 +306,14 @@ ggthemr('dust')
 names_df1 <- names_df %>%
   filter(article_found_Q >= 4)
 
-ggplot(names_df1, aes(x = reorder(name, -article_found_Q), y = article_found_Q)) +
+ggplot(names_df1, aes(x = reorder(name, article_found_Q), y = article_found_Q)) +
   geom_bar(width = 0.8, stat = "identity") +
   #加上標題
   labs(title = "名人出現次數排行", x = "人名", y = "篇數") +
   #修改標籤名字
-  theme(text = element_text(size = 12), axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-  geom_text(aes(label = article_found_Q, y=( article_found_Q+1)),size=6,position =position_dodge(0.2),colour="brown")  
+  theme(text = element_text(size = 12), aspect.ratio = 1.5) +
+  geom_text(aes(label = article_found_Q, y=(article_found_Q+1)),size=4,position =position_dodge(0.2),colour="brown") +
+  coord_flip()
 ```
 </div>
 </div>
@@ -336,18 +385,15 @@ for(i in 1:(length(good_sent)-1)){
 ### **4.1首段與尾段落相似性**
 ### **4.2輸入新文章分析器**
 ```{r, echo=FALSE}
-setwd("./data_set")
-getwd()
 
-
-text <- list.files(path = "./", full.names = FALSE)## ÀÉ®×
+text <- list.files(path = "../data_set", full.names = FALSE)
 paragraph_num <- vector("numeric", length = length(text))## number of paragraph
 article_len <- vector("numeric", length = length(text))## length of article
-sentence_num <- vector("numeric", length = length(text))## number of sentencce
+sentence_num <- vector("numeric", length = length(text))## number of sentence
 
 post <- list()
 for(i in seq_along(text)){
-  post[[i]] <- readLines(text[i], encoding = "UTF-8", warn = FALSE)
+  post[[i]] <- readLines(paste0("../data_set/", text[i]), encoding = "UTF-8", warn = FALSE)
   paragraph_num[i] <- length(post[[i]])
   a <- post[[i]][1]
   for(j in 2 : length(post[[i]])){
@@ -407,6 +453,7 @@ doc_sim <- textstat_simil(q_dfm, method = "cosine") %>% as.matrix()
 sort(doc_sim["AST_98_2.txt", ], decreasing = T)[1:8]
 
 ```
+
 ---
 
 # **小結**
