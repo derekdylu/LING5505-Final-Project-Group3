@@ -241,7 +241,7 @@ ggplot(data = year_df) +
 
 <div class = "row">
 
-<div class = "col-md-8">
+<div class = "col-md-7">
 ```{r, echo = FALSE, out.width='100%'}
 ## 讀檔
 id <- list.files("../data_set/") # 文章的檔名
@@ -289,7 +289,30 @@ geom_text(aes(label = paste0(sprintf("%1.1f", percent*100),"%"), y=(count+10)),s
 ```
 </div>
 
-<div class = "col-md-4">
+<div class = "col-md-5">
+```{r, echo = FALSE, out.width='100%', fig.height=5, fig.width=5}
+# 有引用佳句的文章比例為多少
+df_good_sent <- tibble::tibble(id = id)
+df_quote <- df_good_sent %>%
+  mutate(quote = (id %in% good_sent_id)) %>%
+  group_by(quote) %>%
+  summarise(quote_Q = n(), percentage = n()/208)
+df_quote
+
+#製圖
+ggplot(df_quote, aes(x=" ", y=percentage, fill=quote)) +
+       geom_bar(width = 1, stat = "identity") +
+       coord_polar("y", start=0)+ 
+  geom_text(aes(label = quote_Q), position = position_stack(vjust = 0.5),size=9)+
+                
+#加上標題
+labs(title="引用佳句之文章比例", x = "", y = "", fill = "")+
+
+#修改標籤名字
+theme(text=element_text(family="LiHeiPro",size=12))
+
+```
+從上圖可以看出，有引用佳句之文章約有6成，超過半數，此外可以發現若該年度作文主題非典型之抒情、敘事文，佳句引用比例有較高的趨勢。
 
 </div>
 </div>
@@ -358,7 +381,7 @@ ggplot(names_df1, aes(x = reorder(name, article_found_Q), y = article_found_Q)) 
 </div>
 
 ### **2.2佳句**
-**佳句整理**
+**佳句集錦**
 ```{r, echo=FALSE, attr.output='style="max-height: 300px;"'}
 good_sent <- c()
 good_sent_id <- c()
@@ -388,35 +411,8 @@ good_sent_id <- good_sent_id[-c(5, 6, 7, 8, 9, 10, 11, 13, 18, 19, 20, 22, 24, 2
 
 # 佳句
 good_sent
-# 有引用佳句的文章比例為多少
-df_good_sent <- tibble::tibble(id = id)
-df_quote <- df_good_sent %>%
-  mutate(quote = (id %in% good_sent_id)) %>%
-  group_by(quote) %>%
-  summarise(quote_Q = n(), percentage = n()/208)
-df_quote
-
-#製圖
-ggplot(df_quote, aes(x=" ", y=percentage, fill=quote)) +
-       geom_bar(width = 1, stat = "identity") +
-       coord_polar("y", start=0)+ 
-  geom_text(aes(label = quote_Q), position = position_stack(vjust = 0.5),size=9)+
-                
-#加上標題
-labs(title="引用佳句之文章比例", x = "", y = "", fill = "")+
-
-#修改標籤名字
-theme(text=element_text(family="LiHeiPro",size=12))
-
 
 ```
-
-
-</div>
-<div class = "col-md-5">
-從上圖可以看出，有引用佳句之文章約有6成，超過半數，此外可以發現若該年度作文主題非典型之抒情、敘事文，佳句引用比例有較高的趨勢。
-</div>
-</div>
 
 
 **重複出現之佳句**
@@ -443,6 +439,7 @@ for(i in 1:(length(good_sent)-1)){
 <br>
 
 ## **3語彙詞頻分析**
+**由於此部分程式以Python撰寫，詳細結果請參閱以下網頁** [連結](https://derekdylu.github.io/LING5505-Final-Project-Group3/sense.html)
 ### **3.1中文語彙詞頻**
 ### **3.2冷僻字使用佔比**
 
