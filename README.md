@@ -14,15 +14,14 @@
 
 ## Quick start
 
++ [Demo site](https://derekdylu.github.io/LING5505-Final-Project-Group3/)
 + [Proposal](https://docs.google.com/document/d/1DvcNkbKt71XfwLikUxRwCfoIL6N7rdd8p-fO2EZian4/edit#heading=h.66htjfnm6yv3)
 + [Slides](https://github.com/derekdylu/LING5505-Final-Project-Group3/blob/main/report/slides.pdf)
 + [Written Report]
-+ [Demo site](https://derekdylu.github.io/LING5505-Final-Project-Group3/)
 + [data_set](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/data_set) folder for 208 raw materials
 + The project contains `.Rmd` and `.ipynb` files
   + make sure to install the required packages by following the instructions below before running the `.ipynb` file 
   + for `.Rmd` file, open it in [RStudio](https://www.rstudio.com) and run by following the instructions in the software
-+ All materials of the demo site for `.Rmd` projects are stored [here](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/web/_site), for `.ipynb` project is [here](https://github.com/derekdylu/LING5505-Final-Project-Group3/blob/main/sense.html)
 
 ### Things required for .ipynb file
 
