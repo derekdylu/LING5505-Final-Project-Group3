@@ -19,7 +19,7 @@
 + [Written Report]
 + [Proposal](https://github.com/derekdylu/LING5505-Final-Project-Group3/blob/main/report/proposal.pdf)
 + [data_set](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/data_set) folder for 208 raw materials
-+ This project was conducted by R and Python, orginial source files stored in [source](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/source)
++ This project was conducted by R and Python, orginial source files stored in [source](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/source) folder
   + nstall required packages by following the instructions below before running the `.ipynb` file 
   + for `.Rmd` and `.r` file, open it in [RStudio](https://www.rstudio.com) by following the instructions in the software
 
