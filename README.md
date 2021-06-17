@@ -15,7 +15,7 @@
 ## Quick start
 
 + [Proposal](https://docs.google.com/document/d/1DvcNkbKt71XfwLikUxRwCfoIL6N7rdd8p-fO2EZian4/edit#heading=h.66htjfnm6yv3)
-+ [Slides]
++ [Slides](https://github.com/derekdylu/LING5505-Final-Project-Group3/blob/main/report/slides.pdf)
 + [Written Report]
 + [Demo site]
 + [data_set](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/data_set) folder for 208 raw materials
