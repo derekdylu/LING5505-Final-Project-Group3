@@ -440,6 +440,7 @@ for(i in 1:(length(good_sent)-1)){
 
 ## **3語彙詞頻分析**
 **由於此部分程式以Python撰寫，詳細結果請參閱以下網頁** [連結](https://derekdylu.github.io/LING5505-Final-Project-Group3/sense.html)
+
 ### **3.1中文語彙詞頻**
 ### **3.2冷僻字使用佔比**
 
