@@ -14,7 +14,7 @@ output:
 
 <!-- PART1 -->
 # **前言**
-國寫在升大學考試之國文科目中，與選擇題各佔一半分數之比重，惟我國之國文教學，向來重視古文閱讀、國學常識等，在教學大綱中以選擇題的答寫作為主要教學方向，許多學生對於國寫部分之掌握能力相對不足。因此，本組希望透過分析國寫情意題佳作詞頻，進一步洞察國寫在我國命題方向與佳作取材等寫作方式。從本組分析成果上來看，可以查知國寫範文有＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿等特色。
+國寫在升大學考試之國文科目中，與選擇題各佔一半分數之比重，惟我國之國文教學，向來重視古文閱讀、國學常識等，在教學大綱中以選擇題的答寫作為主要教學方向，許多學生對於國寫部分之掌握能力相對不足。因此，本組希望透過分析國寫情意題佳作詞頻，進一步洞察國寫在我國命題方向與佳作取材等寫作方式。從本組分析成果上來看，可以查知國寫範文有以等特色。
 
 ---
 
@@ -127,11 +127,17 @@ ggplot(data = df_unbreak) +
   geom_vline(xintercept=608,color="grey",size=0.5)+
   geom_vline(xintercept=677.25,color="grey",size=0.5)+
   labs(title="文章字數分佈密度圖",x="字數",y="篇數",caption ="*輔助線為四分位數（549.75,608,677.25)")+
-  theme(text=element_text(size=12))
+  theme(text=element_text(family="LiHeiPro",size=12))
 ```
 </div>
 <div class = "col-md-4">
-(分析結果描述)
+從該圖可以看出，佳作文章字數多介於600字上下，與從小學校教育要求的字數篇幅相吻合。
+
+
+平均：615.21
+標準差：94.16
+中位數：607
+眾數：650
 </div>
 </div>
 
@@ -147,11 +153,16 @@ ggplot(data = df_unbreak) +
   geom_vline(xintercept=19,color="grey",size=0.5)+
   scale_shape_manual(values=c(4,15))+
   labs(title="文章句數分佈密度圖",x="句數",y="篇數",caption = "*輔助線為四分位數（12,15,19)")+
-  theme(text=element_text(size=12))
+theme(text=element_text(family="LiHeiPro",size=12))
 ```
 </div>
 <div class = "col-md-4">
-(分析結果描述)
+從該圖可以看出，佳作總句數分佈多介於15句上下。
+
+平均：15.75
+標準差：5.17
+中位數：15
+眾數：13
 </div>
 </div>
 
@@ -163,11 +174,17 @@ ggplot(data = df_unbreak) +
 ggplot(data = df_unbreak) +
   geom_bar(aes(x=par_num),size=1,color="#996666")+
   labs(title="文章段落數分佈密度圖", x="段落數", y="篇數")+
-  theme(text=element_text(size=12))
+ theme(text=element_text(family="LiHeiPro",size=12))
 ```
 </div>
 <div class = "col-md-4">
-(分析結果描述)
+從上圖可以發現，多數文章仍是以四段式作文為主，多數佳作文章的寫作架構呈現課綱作文教學上之啟承轉合四段架構分配。
+
+平均：4.91
+標準差：1.5
+中位數：4
+眾數：4
+
 </div>
 </div>
 
@@ -190,7 +207,8 @@ ggplot(data = year_df) +
   geom_bar(aes(x = reorder(year, -year), y = average), stat = "identity", size = 1, color = "#996666", show.legend = FALSE) +
   labs(title = "各年份佳作平均名人數", x = "年份", y = "名人數")+
   theme(text = element_text(size = 12), aspect.ratio = 1.5, plot.margin = margin(0, 0, 0, 0, "cm")) +
-  coord_flip()
+  coord_flip()+
+  theme(text=element_text(family="LiHeiPro",size=12))
 ```
 </div>
 
@@ -223,7 +241,7 @@ ggplot(data = year_df) +
 
 <div class = "row">
 
-<div class = "col-md-8">
+<div class = "col-md-7">
 ```{r, echo = FALSE, out.width='100%'}
 ## 讀檔
 id <- list.files("../data_set/") # 文章的檔名
@@ -266,11 +284,35 @@ labs(title="大考佳作出現名人次數分佈狀況",x="出現次數",y="篇�
 #修改標籤名字
 theme(text=element_text(size=12))+
 geom_text(aes(label = count,y = -10),colour="black",size=4)+
-geom_text(aes(label = paste0(sprintf("%1.1f", percent*100),"%"), y=(count+10)),size=6,position =position_dodge(0.2),colour="brown")
+geom_text(aes(label = paste0(sprintf("%1.1f", percent*100),"%"), y=(count+10)),size=6,position =position_dodge(0.2),colour="brown")+
+  theme(text=element_text(family="LiHeiPro",size=12))
 ```
 </div>
 
-<div class = "col-md-4">
+<div class = "col-md-5">
+```{r, echo = FALSE, out.width='100%', fig.height=5, fig.width=5}
+# 有引用佳句的文章比例為多少
+df_good_sent <- tibble::tibble(id = id)
+df_quote <- df_good_sent %>%
+  mutate(quote = (id %in% good_sent_id)) %>%
+  group_by(quote) %>%
+  summarise(quote_Q = n(), percentage = n()/208)
+df_quote
+
+#製圖
+ggplot(df_quote, aes(x=" ", y=percentage, fill=quote)) +
+       geom_bar(width = 1, stat = "identity") +
+       coord_polar("y", start=0)+ 
+  geom_text(aes(label = quote_Q), position = position_stack(vjust = 0.5),size=9)+
+                
+#加上標題
+labs(title="引用佳句之文章比例", x = "", y = "", fill = "")+
+
+#修改標籤名字
+theme(text=element_text(family="LiHeiPro",size=12))
+
+```
+從上圖可以看出，有引用佳句之文章約有6成，超過半數，此外可以發現若該年度作文主題非典型之抒情、敘事文，佳句引用比例有較高的趨勢。
 
 </div>
 </div>
@@ -329,16 +371,17 @@ ggplot(names_df1, aes(x = reorder(name, article_found_Q), y = article_found_Q)) 
   theme(text = element_text(size = 12), aspect.ratio = 1.5) +
   geom_text(aes(label = article_found_Q, y=(article_found_Q+1)),size=4,position =position_dodge(0.2),colour="brown") +
   scale_y_continuous(breaks = c(0,1,2,3,4,5,6,7,8,9,10,11)) +
-  coord_flip()
+  coord_flip()+
+  theme(text=element_text(family="LiHeiPro",size=12))
 ```
 </div>
 <div class = "col-md-5">
-(分析結果描述)
+從該圖呈現之結果可以看出，佳作文章中的名人出現頻率以中國古人為主，其中又以孔子出現次數最多，又上述出現之中國古人物，皆屬課綱30古文之作者。
 </div>
 </div>
 
 ### **2.2佳句**
-**佳句整理**
+**佳句集錦**
 ```{r, echo=FALSE, attr.output='style="max-height: 300px;"'}
 good_sent <- c()
 good_sent_id <- c()
@@ -371,6 +414,7 @@ good_sent
 
 ```
 
+
 **重複出現之佳句**
 ```{r, echo=FALSE}
 # 去除所有標點符號
@@ -395,6 +439,8 @@ for(i in 1:(length(good_sent)-1)){
 <br>
 
 ## **3語彙詞頻分析**
+**由於此部分程式以Python撰寫，詳細結果請參閱以下網頁** [連結](https://derekdylu.github.io/LING5505-Final-Project-Group3/sense.html)
+
 ### **3.1中文語彙詞頻**
 ### **3.2冷僻字使用佔比**
 
@@ -423,10 +469,8 @@ as_unit_vec <- function(x) x / sqrt(sum(x^2))
 # use_python("D:\\Anaconda")
 # py_available()
 
-setwd("./data_set")
-getwd()
 
-text <- list.files(path = "./", full.names = FALSE)## ÀÉ®×
+text <- list.files(path = "../data_set/", full.names = FALSE)## ÀÉ®×
 paragraph_num <- vector("numeric", length = length(text))## number of paragraph
 article_len <- vector("numeric", length = length(text))## length of article
 sentence_num <- vector("numeric", length = length(text))## number of sentencce
@@ -435,7 +479,7 @@ post <- list()
 first <- list()
 last <- list()
 for(i in seq_along(text)){
-  post[[i]] <- readLines(text[i], encoding = "UTF-8", warn = FALSE)
+  post[[i]] <- readLines(paste0("../data_set/",text[i]), encoding = "UTF-8", warn = FALSE)
   paragraph_num[i] <- length(post[[i]])
   a <- post[[i]][1]
   first[i] <- post[[i]][1]
@@ -523,7 +567,8 @@ sort(doc_sim["AST_100_1.txt", ], decreasing = T)[1:20]
 ---
 
 # **小結**
+從上述結果可以看出，佳作文章與傳統作文寫作方向並無太大差異，在結構上多為600字上下之作文，以四段式作文為主，有超過六成之文章引用名言佳句，而在文章中最常出現的偉人以中國古文人為主，又以孔子出現頻率最高。此外，在文章相似性部分，
+最後，我們可以從詞頻相關的研究結果中看出，綜合所有文章觀察的結果，冷僻字使用的佔比約為36%
 
 ---
 
-# **反思**
