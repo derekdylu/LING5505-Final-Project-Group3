@@ -22,6 +22,7 @@
 + This project was conducted by R and Python, orginial source files stored in [source](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/source) folder
   + nstall required packages by following the instructions below before running the `.ipynb` file 
   + for `.Rmd` and `.r` file, open it in [RStudio](https://www.rstudio.com) by following the instructions in the software
++ [Repository on rlads2021](https://github.com/rlads2021/project-derekdylu)
 
 ### Things required for .ipynb file
 
