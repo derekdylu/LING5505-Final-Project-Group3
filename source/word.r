@@ -12,6 +12,10 @@ cossim <- function(x1, x2)
   sum(x1 * x2) / sqrt( sum(x1^2) * sum(x2^2) )
 as_unit_vec <- function(x) x / sqrt(sum(x^2))
 
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
 # library("reticulate")
 # use_python("D:\\Anaconda")
 # py_available()
@@ -91,7 +95,7 @@ df_unbreak <- tibble::tibble(
 # df_break
 # df_unbreak
 # 
-df <- read_excel("../frequency_30_word.xlsx")
+df <- read_excel("../source/frequency_30_word.xlsx")
 test <- unname(unlist(as.list(df["1"])))
 
 quanteda_corpus <- corpus(df_break, 
@@ -101,11 +105,12 @@ quanteda_corpus <- corpus(df_break,
   tokens()
 
 q_dfm <- dfm(quanteda_corpus) %>% 
-  dfm_remove(pattern =  readLines("../stopwords.txt"), valuetype = "fixed") %>%
   dfm_select(test) %>%
+  # dfm_remove(pattern =  readLines("../stopwords.txt"), valuetype = "fixed") %>%
   dfm_tfidf()
 q_dfm
 
 doc_sim <- textstat_simil(q_dfm, method = "cosine") %>% as.matrix()
 sort(doc_sim["AST_100_1.txt", ], decreasing = T)[1:20]
-
+# a <- c(71.42, 41.66, 50.4, 60.6, 100, 100, 60, 38.4, 42.8, 79.5, 60.6, 57.7, 100, 39.2, 75)## above 50%
+# b <- c(50, 50, 70.5, 90.9, 100, 100, 60, 46.1, 42.8, 63.6, 90.9, 86.6, 100, 55, 75)
