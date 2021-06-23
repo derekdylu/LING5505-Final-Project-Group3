@@ -1,0 +1,16 @@
+site_name: Sense
+
+theme: 
+    name: material
+    language: zh-TW
+    palette: 
+        primary: white
+        accent: indigo
+    icon:
+        logo: octicons/project-24
+    features:
+        - toc.integrate
+        - navigation.instant
+        - navigation.expand
+
+site_url: https://example.com/
