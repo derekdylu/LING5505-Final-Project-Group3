@@ -20,7 +20,7 @@ getmode <- function(v) {
 # use_python("D:\\Anaconda")
 # py_available()
 
-setwd("../data_set/")
+setwd("./data_set")
 getwd()
 
 text <- list.files(path = "./", full.names = FALSE)## ÀÉ®×
@@ -64,20 +64,20 @@ for(i in seq_along(post)){
   first_break[i] <- paste(segged_F, collapse = "\u3000")
   last_break[i] <- paste(segged_L, collapse = "\u3000")
 }
-similar <- vector("numeric", length(post))
-for(i in seq_along(post)){
-  a <- c(first_break[i], last_break[i])
-  # print(a)
-  quanteda_corpus_a <- corpus(a) %>%
-    tokenizers::tokenize_regex(pattern =  "\u3000") %>%
-    tokens()
-  q_dfm <- dfm(quanteda_corpus_a) %>%
-    dfm_remove(pattern =  readLines("../source/stopwords.txt"), valuetype = "fixed") %>%
-    dfm_select(pattern = "[\u4E00-\u9FFF]", valuetype = "regex") %>%
-    dfm_tfidf()
-  similar[i] <- cossim(q_dfm[1, ], q_dfm[2, ])
-}
-print(similar)
+# similar <- vector("numeric", length(post))
+# for(i in seq_along(post)){
+#   a <- c(first_break[i], last_break[i])
+#   quanteda_corpus_a <- corpus(a) %>%
+#     tokenizers::tokenize_regex(pattern =  "\u3000") %>%
+#     tokens()
+#   q_dfm <- dfm(quanteda_corpus_a) %>%
+#     dfm_remove(pattern =  readLines("../stopwords.txt"), valuetype = "fixed") %>%
+#     dfm_select(pattern = "[\u4E00-\u9FFF]", valuetype = "regex") %>%
+#     dfm_tfidf()
+#   similar[i] <- eudist(q_dfm[1,], q_dfm[2,])
+# }
+# 
+# print(similar)
 
 df_break <- tibble::tibble(
   id = text,
@@ -92,4 +92,25 @@ df_unbreak <- tibble::tibble(
   content = post
 )
 
+# df_break
+# df_unbreak
+# 
+df <- read_excel("../source/frequency_30_word.xlsx")
+test <- unname(unlist(as.list(df["1"])))
 
+quanteda_corpus <- corpus(df_break, 
+                          docid_field = "id", 
+                          text_field = "content") %>%
+  tokenizers::tokenize_regex(pattern =  "\u3000") %>%
+  tokens()
+
+q_dfm <- dfm(quanteda_corpus) %>% 
+  dfm_select(test) %>%
+  # dfm_remove(pattern =  readLines("../stopwords.txt"), valuetype = "fixed") %>%
+  dfm_tfidf()
+q_dfm
+
+doc_sim <- textstat_simil(q_dfm, method = "cosine") %>% as.matrix()
+sort(doc_sim["AST_100_1.txt", ], decreasing = T)[1:20]
+# a <- c(71.42, 41.66, 50.4, 60.6, 100, 100, 60, 38.4, 42.8, 79.5, 60.6, 57.7, 100, 39.2, 75)## above 50%
+# b <- c(50, 50, 70.5, 90.9, 100, 100, 60, 46.1, 42.8, 63.6, 90.9, 86.6, 100, 55, 75)
