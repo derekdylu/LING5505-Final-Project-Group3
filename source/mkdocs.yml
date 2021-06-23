@@ -13,4 +13,35 @@ theme:
         - navigation.instant
         - navigation.expand
 
+markdown_extensions:
+    - pymdownx.highlight
+    - pymdownx.superfences
+    - pymdownx.tabbed
+    - pymdownx.keys
+    - pymdownx.inlinehilite
+    - pymdownx.critic
+    - pymdownx.caret
+    - pymdownx.mark
+    - pymdownx.tilde
+    - pymdownx.smartsymbols
+    - pymdownx.details
+    - pymdownx.tasklist
+    - admonition
+    - pymdownx.arithmatex:
+        generic: true
+    - toc:
+        permalink: true
+    - attr_list
+extra_javascript:
+    - js/config.js
+    - js/polyfill.js # https://polyfill.io/v3/polyfill.min.js?features=es6
+    - js/mathjax/tex-chtml.js
+    # - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    # - js/tex-mml-chtml.js
+
+extra_css:
+    - stylesheets/jupyter.css
+
+edit_uri: ""
+
 site_url: https://example.com/
