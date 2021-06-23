@@ -537,25 +537,33 @@ div.tocify {
 </div>
 <p><br></p>
 <div class="row">
-<div class="col-md-7">
+<div class="col-md-8">
 <p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="100%" /></p>
 </div>
-<div class="col-md-5">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="100%" /> 從上圖可以看出，有引用佳句之文章約有6成，超過半數，此外可以發現若該年度作文主題非典型之抒情、敘事文，佳句引用比例有較高的趨勢。</p>
+<div class="col-md-4">
+
 </div>
 </div>
 <p><br></p>
 <div class="row">
 <div class="col-md-7">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="100%" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="100%" /></p>
 </div>
 <div class="col-md-5">
-<p>從該圖呈現之結果可以看出，佳作文章中的名人出現頻率以中國古人為主，其中又以孔子出現次數最多，又上述出現之中國古人物，皆屬課綱30古文之作者。</p>
+<p><br> 從該圖呈現之結果可以看出，佳作文章中的名人出現頻率以中國古人為主，其中又以孔子出現次數最多，又上述出現之中國古人物，皆屬課綱30古文之作者。</p>
 </div>
 </div>
 </div>
 <div id="佳句" class="section level3">
 <h3><strong>2.2佳句</strong></h3>
+<div class="row">
+<div class="col-md-7">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="100%" /></p>
+</div>
+<div class="col-md-5">
+<p><br> <br> 從左圖可以看出，有引用佳句之文章約有6成，超過半數，此外可以發現若該年度作文主題非典型之抒情、敘事文，佳句引用比例有較高的趨勢。</p>
+</div>
+</div>
 <p><strong>佳句集錦</strong></p>
 <pre style="max-height: 300px;"><code>##   [1] &quot;天地有大美而不言！&quot;                                                                                                                                                                                        
 ##   [2] &quot;如果我只是一味地感傷難過，而不把握光陰，到最後一樣會死去，倒不如時時刻刻地活在當下，享受生命，才能不留遺憾地撒手，帶著滿足離開人世。&quot;                                                                      
@@ -833,34 +841,60 @@ div.tocify {
 <h2><strong>3相似性分析</strong></h2>
 <div id="首段與尾段落相似性" class="section level3">
 <h3><strong>3.1首段與尾段落相似性</strong></h3>
+<pre><code>##   [1]   0   0   0   0   0   0   0   0   0   0   0   0
+##  [13] NaN   0   0   0   0   0   0   0   0   0   0   0
+##  [25]   0   0   0   0   0   0   0   0   0   0   0   0
+##  [37]   0   0   0   0   0   0   0   0   0   0   0   0
+##  [49]   0   0   0   0   0   0   0   0   0   0   0   0
+##  [61]   0   0   0   0   0   0   0   0   0   0   0   0
+##  [73]   0   0   0   0   0   0   0   0   0   0   0   0
+##  [85]   0   0   0   0   0   0 NaN   0   0   0   0   0
+##  [97]   0   0   0   0   0   0   0   0   0   0   0   0
+## [109]   0   0   0   0   0   0   0   0   0   0   0   0
+## [121]   0   0   0   0   0   0   0   0   0   0   0   0
+## [133]   0   0   0   0   0   0   0   0   0   0   0   0
+## [145]   0   0   0   0   0   0   0   0   0   0   0   0
+## [157]   0   0   0   0   0   0   0   0   0   0   0   0
+## [169]   0   0   0   0   0   0   0   0   0   0   0   0
+## [181]   0   0   0   0   0   0   0   0   0   0   0   0
+## [193]   0   0   0   0   0   0   0   0   0   0   0   0
+## [205]   0   0   0   0</code></pre>
 </div>
 <div id="輸入新文章分析器" class="section level3">
 <h3><strong>3.2輸入新文章分析器</strong></h3>
 <pre><code>## Document-feature matrix of: 208 documents, 30 features (66.96% sparse) and 0 docvars.
 ##                 features
-## docs                   寬         是       深         在
-##   AST_100_1.txt  5.438072 0.03813590 6.102200 0.07589851
-##   AST_100_10.txt 4.350458 0.02542393 5.085167 0.07589851
-##   AST_100_11.txt 4.350458 0.05084786 2.034067 0.04216584
-##   AST_100_12.txt 2.175229 0.06355983 1.017033 0.05903217
-##   AST_100_13.txt 1.087614 0.03813590 2.034067 0.09276484
-##   AST_100_14.txt 5.438072 0.08898376 6.102200 0.04216584
+## docs                   寬         是       深
+##   AST_100_1.txt  5.438072 0.03813590 6.102200
+##   AST_100_10.txt 4.350458 0.02542393 5.085167
+##   AST_100_11.txt 4.350458 0.05084786 2.034067
+##   AST_100_12.txt 2.175229 0.06355983 1.017033
+##   AST_100_13.txt 1.087614 0.03813590 2.034067
+##   AST_100_14.txt 5.438072 0.08898376 6.102200
 ##                 features
-## docs                    中      生命         了     深度
-##   AST_100_1.txt  0.5427416 1.3983215 0.15130803 4.244920
-##   AST_100_10.txt 0.5427416 0.6991608 0.09078482 4.244920
-##   AST_100_11.txt 0.1085483 1.0487412 0.12104642 2.829947
-##   AST_100_12.txt 0.5427416 0         0.06052321 4.244920
-##   AST_100_13.txt 0.6512899 1.7479019 0.18156963 4.244920
-##   AST_100_14.txt 0.5427416 0         0.03026161 0       
+## docs                     在        中      生命
+##   AST_100_1.txt  0.07589851 0.5427416 1.3983215
+##   AST_100_10.txt 0.07589851 0.5427416 0.6991608
+##   AST_100_11.txt 0.04216584 0.1085483 1.0487412
+##   AST_100_12.txt 0.05903217 0.5427416 0        
+##   AST_100_13.txt 0.09276484 0.6512899 1.7479019
+##   AST_100_14.txt 0.04216584 0.5427416 0        
 ##                 features
-## docs                    於        能
-##   AST_100_1.txt  0.3180633 0.4563164
-##   AST_100_10.txt 0.6361267 0.2281582
-##   AST_100_11.txt 0         0.6844747
-##   AST_100_12.txt 0         0.4563164
-##   AST_100_13.txt 0.9541900 0.2281582
-##   AST_100_14.txt 1.5903167 1.1407911
+## docs                     了     深度        於
+##   AST_100_1.txt  0.15130803 4.244920 0.3180633
+##   AST_100_10.txt 0.09078482 4.244920 0.6361267
+##   AST_100_11.txt 0.12104642 2.829947 0        
+##   AST_100_12.txt 0.06052321 4.244920 0        
+##   AST_100_13.txt 0.18156963 4.244920 0.9541900
+##   AST_100_14.txt 0.03026161 0        1.5903167
+##                 features
+## docs                    能
+##   AST_100_1.txt  0.4563164
+##   AST_100_10.txt 0.2281582
+##   AST_100_11.txt 0.6844747
+##   AST_100_12.txt 0.4563164
+##   AST_100_13.txt 0.2281582
+##   AST_100_14.txt 1.1407911
 ## [ reached max_ndoc ... 202 more documents, reached max_nfeat ... 20 more features ]</code></pre>
 <pre><code>##   AST_100_1.txt   AST_100_5.txt  AST_100_11.txt 
 ##       1.0000000       0.9649792       0.9228791 
@@ -881,7 +915,7 @@ div.tocify {
 </div>
 <div id="語彙詞頻分析" class="section level2">
 <h2><strong>4語彙詞頻分析</strong></h2>
-<p><strong>由於此部分程式以Python撰寫，詳細結果請參閱以下網頁</strong> <a href="https://derekdylu.github.io/LING5505-Final-Project-Group3/sense.html">連結</a></p>
+<p><strong>由於此部分程式以Python撰寫，詳細結果請參閱以下網頁</strong> <a href="https://derekdylu.github.io/LING5505-Final-Project-Group3/source/site/sense.html">連結</a></p>
 <div id="中文語彙詞頻" class="section level3">
 <h3><strong>4.1中文語彙詞頻</strong></h3>
 </div>
