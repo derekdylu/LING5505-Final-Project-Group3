@@ -16,7 +16,7 @@
 
 + [Demo site](https://derekdylu.github.io/LING5505-Final-Project-Group3/)
 + [Slides](https://github.com/derekdylu/LING5505-Final-Project-Group3/blob/main/report/slides.pdf)
-+ [Written Report]
++ [Written Report](https://github.com/derekdylu/LING5505-Final-Project-Group3/blob/main/report/report.pdf)
 + [Proposal](https://github.com/derekdylu/LING5505-Final-Project-Group3/blob/main/report/proposal.pdf)
 + [data_set](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/data_set) folder for 208 raw materials
 + This project was conducted by R and Python, orginial source files stored in [source](https://github.com/derekdylu/LING5505-Final-Project-Group3/tree/main/source) folder
