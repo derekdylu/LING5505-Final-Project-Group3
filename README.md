@@ -6,7 +6,7 @@
     台灣升大學考試國寫情意題佳作研究
 </h2>
 
-<h3 align="center">3. 想不到組名</h3>
+<h3 align="center">3.想不到組名</h3>
 
 <h5 align="center">
     朱修平、盧德原、楊舒晴、陳宛瑩
