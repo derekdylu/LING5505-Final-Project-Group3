@@ -24,7 +24,7 @@
   + for `.Rmd` and `.r` file, open it in [RStudio](https://www.rstudio.com) by following the instructions in the software
 + [Repository on rlads2021](https://github.com/rlads2021/project-derekdylu)
 
-### Things required for .ipynb file
+## Requirements for the Python Project
 
   You have to download all the potentially required package according to the commands below,
 
